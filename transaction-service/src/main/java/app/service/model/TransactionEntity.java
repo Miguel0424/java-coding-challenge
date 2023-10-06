@@ -1,6 +1,8 @@
 package app.service.model;
 
-import app.service.domain.Customer;
+import java.time.Instant;
+
+import app.service.domain.Transaction;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,14 +16,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table
 @Entity
-public class CustomerEntity {
-
+public class TransactionEntity {
     @Id
     @GeneratedValue
     Integer id;
-    String name;
+    Integer customerId;
+    Instant createdAt;
+    Double amount;
 
-    public Customer toDomain() {
-        return new Customer(id, name, null, null);
+    public Transaction toDomain() {
+        return new Transaction(id, customerId, createdAt, amount);
     }
 }

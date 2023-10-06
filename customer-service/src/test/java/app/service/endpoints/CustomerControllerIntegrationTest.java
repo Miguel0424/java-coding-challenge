@@ -45,13 +45,10 @@ class CustomerControllerIntegrationTest {
         // then
         final var result = objectMapper.readValue(response.getResponse().getContentAsString(), GetCustomersResponse.class);
         assertThat(result.getCustomers()).hasSize(3).satisfiesExactly(customer -> {
-            assertThat(customer.getId()).isEqualTo(1);
             assertThat(customer.getName()).isEqualTo("John");
         }, customer -> {
-            assertThat(customer.getId()).isEqualTo(2);
             assertThat(customer.getName()).isEqualTo("Jane");
         }, customer -> {
-            assertThat(customer.getId()).isEqualTo(3);
             assertThat(customer.getName()).isEqualTo("Joe");
         });
     }

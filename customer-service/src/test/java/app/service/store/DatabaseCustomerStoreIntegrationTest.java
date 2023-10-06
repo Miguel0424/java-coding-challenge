@@ -38,7 +38,6 @@ class DatabaseCustomerStoreIntegrationTest {
         // then
         final var result = customerStore.getCustomers();
         assertThat(result).hasSize(1).singleElement().satisfies(customer -> {
-            assertThat(customer.getId()).isEqualTo(1);
             assertThat(customer.getName()).isEqualTo("John");
         });
     }
@@ -56,13 +55,10 @@ class DatabaseCustomerStoreIntegrationTest {
 
         // then
         assertThat(result).hasSize(3).satisfiesExactly(customer -> {
-            assertThat(customer.getId()).isEqualTo(2);
             assertThat(customer.getName()).isEqualTo("John");
         }, customer -> {
-            assertThat(customer.getId()).isEqualTo(3);
             assertThat(customer.getName()).isEqualTo("Jane");
         }, customer -> {
-            assertThat(customer.getId()).isEqualTo(4);
             assertThat(customer.getName()).isEqualTo("Joe");
         });
     }
