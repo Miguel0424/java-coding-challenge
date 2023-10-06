@@ -32,7 +32,7 @@ public class DatabaseTransactionStore implements TransactionStore {
         return transactionRepository.save(new TransactionEntity(
             null,
             params.getCustomerId(),
-            Instant.now(),
+            params.getCreatedAt(),
             params.getAmount()
         )).toDomain();
     }

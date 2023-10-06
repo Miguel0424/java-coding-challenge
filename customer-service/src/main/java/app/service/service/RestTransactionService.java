@@ -12,6 +12,10 @@ public class RestTransactionService implements TransactionService {
     private final RestTemplate restTemplate;
 
     public List<Transaction> getTransactionsByCustomerId(int customerId) {
-        return restTemplate.getForObject("http://localhost:8080/api/transactions?customerId=" + customerId, List.class);
+        try {
+            return restTemplate.getForObject("http://transaction-service:8081/api/transactions?customerId=" + customerId, TransactionsResponse.class).getTransactions();
+        } catch (Exception e) {
+            return List.of();
+        }
     }
 }

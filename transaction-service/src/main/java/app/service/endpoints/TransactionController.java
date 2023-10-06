@@ -44,7 +44,11 @@ public class TransactionController {
     @PostMapping("/api/transactions")
     @ResponseStatus(HttpStatus.CREATED)
     public CreateTransactionResponse createTransaction(@RequestBody CreateTransactionRequest createTransactionRequest) {
-        final var output = createTransactionCommand.execute(new CreateTransactionCommand.Input(createTransactionRequest.getCustomerId(), createTransactionRequest.getAmount()));
+        final var output = createTransactionCommand.execute(new CreateTransactionCommand.Input(
+            createTransactionRequest.getCustomerId(),
+            createTransactionRequest.getAmount(),
+            createTransactionRequest.getCreatedAt()
+        ));
         return new CreateTransactionResponse(output.getId());
     }
 }

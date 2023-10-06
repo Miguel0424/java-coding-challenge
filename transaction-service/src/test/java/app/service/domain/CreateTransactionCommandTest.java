@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CreateTransactionCommandTest {
+class CreateTransactionCommandTest {
 
     @Test
     void shouldCreateTransaction() {
@@ -19,7 +19,7 @@ public class CreateTransactionCommandTest {
         final var command = new CreateTransactionCommand(transactionStore);
 
         // when
-        final var output = command.execute(new CreateTransactionCommand.Input(customerId, amount));
+        final var output = command.execute(new CreateTransactionCommand.Input(customerId, amount, Instant.now()));
 
         // then
         assertThat(output.getId()).isEqualTo(1);
@@ -39,7 +39,7 @@ public class CreateTransactionCommandTest {
 
         @Override
         public Transaction createTransaction(CreateTransactionParams params) {
-            return new Transaction(1, params.getCustomerId(), Instant.now(), params.getAmount());
+            return new Transaction(1, params.getCustomerId(), params.getCreatedAt(), params.getAmount());
         }
     }
 }

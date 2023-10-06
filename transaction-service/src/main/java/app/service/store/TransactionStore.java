@@ -1,5 +1,6 @@
 package app.service.store;
 
+import java.time.Instant;
 import java.util.List;
 
 import app.service.domain.Transaction;
@@ -17,5 +18,6 @@ public interface TransactionStore {
     class CreateTransactionParams {
         int customerId;
         double amount;
+        Instant createdAt;
     }
 }

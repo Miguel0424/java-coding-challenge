@@ -4,9 +4,6 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import app.service.domain.Customer;
-import app.service.domain.GetCustomersQuery;
-import app.service.domain.Transaction;
 import app.service.service.TransactionService;
 import app.service.store.CustomerStore;
 import org.junit.jupiter.api.Test;

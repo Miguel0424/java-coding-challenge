@@ -1,4 +1,4 @@
-package app.service;
+package app.service.configuration;
 
 import app.service.domain.CreateTransactionCommand;
 import app.service.domain.GetCustomerTransactionsQuery;

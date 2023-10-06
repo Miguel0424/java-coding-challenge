@@ -1,8 +1,8 @@
 package app.service.endpoints;
 
+import java.time.Instant;
+
 import app.service.Application;
-import app.service.error.TransactionNotFoundException;
-import app.service.store.TransactionRepository;
 import app.service.store.TransactionStore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = Application.class)
 @AutoConfigureMockMvc
-public class TransactionControllerIntegrationTest {
+class TransactionControllerIntegrationTest {
 
     private static final String TRANSACTIONS_URL = "/api/transactions";
     private static final String GET_TRANSACTION_URL = "/api/transactions/{transactionId}";
@@ -29,7 +29,7 @@ public class TransactionControllerIntegrationTest {
                               @Autowired TransactionStore transactionStore,
                               @Autowired ObjectMapper objectMapper) throws Exception {
         // given
-        transactionStore.createTransaction(new TransactionStore.CreateTransactionParams(1, 100.0));
+        transactionStore.createTransaction(new TransactionStore.CreateTransactionParams(1, 100.0, Instant.now()));
 
         // when
         final var response = mockMvc.perform(get(GET_TRANSACTION_URL, 1))
@@ -50,8 +50,8 @@ public class TransactionControllerIntegrationTest {
         // given
         final var customerId = 1;
         final var anotherCustomerId = 2;
-        transactionStore.createTransaction(new TransactionStore.CreateTransactionParams(customerId, 100.0));
-        transactionStore.createTransaction(new TransactionStore.CreateTransactionParams(anotherCustomerId, 100.0));
+        transactionStore.createTransaction(new TransactionStore.CreateTransactionParams(customerId, 100.0, Instant.now()));
+        transactionStore.createTransaction(new TransactionStore.CreateTransactionParams(anotherCustomerId, 100.0, Instant.now()));
 
         // when
         final var response = mockMvc.perform(get(TRANSACTIONS_URL + "?customerId=" + customerId))
@@ -70,12 +70,11 @@ public class TransactionControllerIntegrationTest {
     @Test
     void shouldCreateTransaction(@Autowired MockMvc mockMvc,
                                  @Autowired TransactionStore transactionStore,
-                                 @Autowired TransactionRepository transactionRepository,
-                                 @Autowired ObjectMapper objectMapper) throws Exception, TransactionNotFoundException {
+                                 @Autowired ObjectMapper objectMapper) throws Exception {
         // given
         final var customerId = 1;
         final var amount = 100.0;
-        final var request = new CreateTransactionRequest(customerId, amount);
+        final var request = new CreateTransactionRequest(customerId, amount, Instant.now());
 
         // when
         final var response = mockMvc.perform(post(TRANSACTIONS_URL)

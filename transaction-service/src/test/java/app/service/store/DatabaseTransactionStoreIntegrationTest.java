@@ -3,11 +3,8 @@ package app.service.store;
 import java.time.Instant;
 
 import app.service.Application;
-import app.service.domain.Transaction;
 import app.service.error.TransactionNotFoundException;
 import app.service.model.TransactionEntity;
-import app.service.store.TransactionRepository;
-import app.service.store.TransactionStore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -79,7 +76,7 @@ class DatabaseTransactionStoreIntegrationTest {
         final var amount = 100.0;
 
         // when
-        final var output = transactionStore.createTransaction(new TransactionStore.CreateTransactionParams(customerId, amount));
+        final var output = transactionStore.createTransaction(new TransactionStore.CreateTransactionParams(customerId, amount, Instant.now()));
 
         // then
         assertThat(output.getId()).isEqualTo(5);
