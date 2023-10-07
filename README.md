@@ -20,5 +20,3 @@ In order to check the health of transaction-service, Ping/open http://localhost:
 
 ### Run with Docker
 In case you want to run the services using docker without triggering the `start.sh` script, you can enter `docker-compose up` in the terminal and use the services.
-
-![java-coding-challenge-dataset.png](java-coding-challenge-dataset.png)
